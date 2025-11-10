@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genesis Consulting Group - Strategy, Innovation, Results</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: white;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 0;
+        }
+
+        .logo svg {
+            width: 45px;
+            height: 45px;
+        }
+
+        .company-name {
+            font-size: 20px;
+            font-weight: 400;
+            color: #3d3d3d;
+            font-family: Georgia, serif;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 26px 18px;
+            cursor: pointer;
+            color: #555;
+            font-size: 15px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+
+        .nav-item:hover {
+            color: #1e4d8b;
+        }
+
+        .nav-item.has-dropdown::after {
+            content: '⌄';
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .nav-item.has-dropdown:hover::after {
+            transform: rotate(180deg);
+        }
+
+        .right-section {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .contact-btn {
+            background: #1e4d8b;
+            color: white;
+            padding: 11px 26px;
+            border: none;
+            border-radius: 3px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: #163a6a;
+        }
+
+        /* Dropdown Styles */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            min-width: 850px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            padding: 35px;
+            margin-top: 0;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 20px;
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .industry-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px;
+            border-radius: 4px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .industry-item:hover {
+            background: #f8f9fa;
+        }
+
+        .industry-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .industry-content h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 3px;
+        }
+
+        .industry-content p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e4d8b 0%, #2563a8 100%);
+            color: white;
+            padding: 100px 40px 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.05);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(255,255,255,0);stop-opacity:1" /></linearGradient></defs><path d="M0,200 Q300,100 600,200 T1200,200 L1200,600 L0,600 Z" fill="url(%23grad)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 400;
+            margin-bottom: 28px;
+            font-family: Georgia, serif;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 820px;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        /* Featured Insights Section */
+        .insights-section {
+            background: #fafafa;
+            padding: 80px 40px;
+        }
+
+        .insights-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .section-header p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 45px;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            z-index: 10;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+            transition: all 0.3s;
+        }
+
+        .scroll-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .scroll-btn.left {
+            left: -24px;
+        }
+
+        .scroll-btn.right {
+            right: -24px;
+        }
+
+        #insightsContainer {
+            display: flex;
+            gap: 22px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding: 10px 0 30px;
+        }
+
+        #insightsContainer::-webkit-scrollbar {
+            display: none;
+        }
+
+        .insight-card {
+            flex: 0 0 320px;
+            background: white;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+        }
+
+        .card-image {
+            height: 240px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 22px;
+        }
+
+        .card-category {
+            font-size: 11px;
+            color: #1e4d8b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .card-meta {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #1a1a1a;
+            font-weight: 600;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .card-expanded {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .card-expanded p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .learn-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 14px;
+            color: #1e4d8b;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Capabilities Section */
+        .capabilities-section {
+            padding: 80px 40px;
+            background: white;
+        }
+
+        .capabilities-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .capability-card {
+            padding: 32px;
+            background: #f9fafb;
+            border-radius: 6px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .capability-card:hover {
+            background: #f0f4f8;
+            transform: translateY(-2px);
+        }
+
+        .capability-icon {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, #1e4d8b 0%, #2563a8 100%);
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+
+        .capability-card h3 {
+            font-size: 19px;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .capability-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: #999;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            text-align: center;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo-section">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 5 L90 27.5 L90 72.5 L50 95 L10 72.5 L10 27.5 Z" fill="#4a6c8a"/>
+                    <text x="50" y="70" font-family="Georgia, serif" font-size="55" font-weight="bold" fill="white" text-anchor="middle">G</text>
+                </svg>
+                <div class="company-name">Genesis Consulting Group</div>
+            </div>
+
+            <nav class="main-nav">
+                <div class="nav-item has-dropdown">
+                    Industries
+                    <div class="dropdown-menu">
+                        <div class="dropdown-section-title">Primary Industries</div>
+                        <div class="industries-grid">
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Food & Beverage</h3>
+                                    <p>Packaging, quality, and supply chain solutions</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Pharmaceuticals</h3>
+                                    <p>Compliance packaging and quality assurance</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Consumer Goods (CPG)</h3>
+                                    <p>End-to-end packaging and sourcing optimization</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>E-commerce & Retail</h3>
+                                    <p>Shipping packaging and supply chain excellence</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Cosmetics & Personal Care</h3>
+                                    <p>Premium packaging development</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Electronics & Technology</h3>
+                                    <p>Protective packaging and global supply chains</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item has-dropdown">
+                    Capabilities
+                    <div class="dropdown-menu">
+                        <div class="dropdown-section-title">Our Core Capabilities</div>
+                        <div class="industries-grid">
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Packaging Development</h3>
+                                    <p>Custom design, prototyping, and innovation</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Quality Assurance</h3>
+                                    <p>Testing, compliance, and quality control</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Supply Chain</h3>
+                                    <p>End-to-end optimization and logistics</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Project Management</h3>
+                                    <p>All kinds of project execution</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>IT Services</h3>
+                                    <p>Technology solutions and transformation</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Strategic Sourcing</h3>
+                                    <p>Procurement optimization</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item has-dropdown">
+                    Insights
+                    <div class="dropdown-menu">
+                        <div class="dropdown-section-title">Latest Thinking</div>
+                        <div class="industries-grid">
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Latest Insights</h3>
+                                    <p>Our newest thinking</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Case Studies</h3>
+                                    <p>Client success stories</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Reports & Publications</h3>
+                                    <p>In-depth research</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Industry Trends</h3>
+                                    <p>Market analysis and forecasts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item has-dropdown">
+                    About
+                    <div class="dropdown-menu">
+                        <div class="industries-grid">
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>About Us</h3>
+                                    <p>Our story and mission</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Our Experts</h3>
+                                    <p>Meet our leadership team</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Our Approach</h3>
+                                    <p>Methodology and framework</p>
+                                </div>
+                            </div>
+                            <div class="industry-item">
+                                <div class="industry-icon" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);"></div>
+                                <div class="industry-content">
+                                    <h3>Contact</h3>
+                                    <p>Get in touch</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="right-section">
+                <button class="contact-btn">Contact Us</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Genesis: Strategy, Accelerated.</h1>
+            <p>We partner with visionary leaders to solve their most critical challenges. Our unique blend of strategic rigor and innovative execution unlocks new value, drives growth, and delivers a lasting competitive advantage.</p>
+        </div>
+    </section>
+
+    <!-- Featured Insights -->
+    <section class="insights-section">
+        <div class="insights-content">
+            <div class="section-header">
+                <h2>Featured Insights</h2>
+                <p>Explore our latest thinking on the trends and challenges shaping business today</p>
+            </div>
+            
+            <div class="carousel-wrapper">
+                <button class="scroll-btn left" id="scrollLeft">
+                    <span style="font-size: 28px; color: #333; font-weight: 300;">‹</span>
+                </button>
+
+                <button class="scroll-btn right" id="scrollRight">
+                    <span style="font-size: 28px; color: #333; font-weight: 300;">›</span>
+                </button>
+
+                <div id="insightsContainer">
+                    <!-- Card 1 -->
+                    <div class="insight-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" alt="Analytics">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-category">SUPPLY CHAIN OPTIMIZATION</div>
+                            <div class="card-meta">REPORT • OCTOBER 15, 2025</div>
+                            <h3 class="card-title">Data-Driven Supply Chain Excellence</h3>
+                            <div class="card-expanded">
+                                <p>Advanced analytics and real-time visibility are transforming supply chain operations. Companies leveraging predictive insights are reducing costs by 25% while improving delivery performance.</p>
+                                <a href="#" class="learn-more">Learn More <span>→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="insight-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop" alt="Planning">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-category">STRATEGIC SOURCING</div>
+                            <div class="card-meta">CASE STUDY • OCTOBER 10, 2025</div>
+                            <h3 class="card-title">Procurement Transformation Success</h3>
+                            <div class="card-expanded">
+                                <p>A global CPG company achieved $75M in annual savings through strategic category management, supplier rationalization, and digital procurement tools.</p>
+                                <a href="#" class="learn-more">Learn More <span>→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="insight-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop" alt="Office">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-category">PACKAGING INNOVATION</div>
+                            <div class="card-meta">INSIGHT • OCTOBER 5, 2025</div>
+                            <h3 class="card-title">Sustainable Packaging Revolution</h3>
+                            <div class="card-expanded">
+                                <p>Eco-friendly packaging driving 30% cost reductions. From biodegradable materials to circular design, learn how leading brands are transforming packaging.</p>
+                                <a href="#" class="learn-more">Learn More <span>→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="insight-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop" alt="Data">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-category">PROJECT MANAGEMENT</div>
+                            <div class="card-meta">ARTICLE • SEPTEMBER 28, 2024</div>
+                            <h3 class="card-title">Agile at Enterprise Scale</h3>
+                            <div class="card-expanded">
+                                <p>Scaling agile methodologies across complex organizations. Successful enterprises balance speed with governance, delivering projects 40% faster.</p>
+                                <a href="#" class="learn-more">Learn More <span>→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="insight-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=300&fit=crop" alt="Contracts">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-category">CONTRACT MANAGEMENT</div>
+                            <div class="card-meta">REPORT • SEPTEMBER 20, 2024</div>
+                            <h3 class="card-title">Smart Contract Automation</h3>
+                            <div class="card-expanded">
+                                <p>Digital contract management platforms reducing administrative burden by 65%. Automated workflows and AI-powered risk detection transform vendor relationships.</p>
+                                <a href="#" class="learn-more">Learn More <span>→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="insight-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop" alt="Quality">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-category">QUALITY ASSURANCE</div>
+                            <div class="card-meta">CASE STUDY • SEPTEMBER 15, 2024</div>
+                            <h3 class="card-title">Zero-Defect Packaging Quality</h3>
+                            <div class="card-expanded">
+                                <p>A pharmaceutical manufacturer achieved 99.7% quality compliance using AI-powered inspection systems detecting packaging defects invisible to human inspectors.</p>
+                                <a href="#" class="learn-more">Learn More <span>→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7 -->
+                    <div class="insight-card">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=300&fit=crop" alt="IT">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-category">IT SERVICES</div>
+                            <div class="card-meta">INSIGHT • SEPTEMBER 10, 2024</div>
+                            <h3 class="card-title">Digital Supply Chain Integration</h3>
+                            <div class="card-expanded">
+                                <p>Cloud-based platforms and IoT sensors creating connected supply chains. Companies report 35% improvement in order accuracy and 28% faster fulfillment.</p>
+                                <a href="#" class="learn-more">Learn More <span>→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="capabilities-section">
+        <div class="capabilities-content">
+            <div class="section-header">
+                <h2>Our Capabilities</h2>
+                <p>Comprehensive solutions across the value chain</p>
+            </div>
+            
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon"></div>
+                    <h3>Packaging Development</h3>
+                    <p>Custom packaging design, prototyping, and innovation tailored to your brand and sustainability goals.</p>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon"></div>
+                    <h3>Quality Assurance</h3>
+                    <p>Comprehensive testing, compliance frameworks, and quality control systems that ensure excellence.</p>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon"></div>
+                    <h3>Supply Chain Optimization</h3>
+                    <p>End-to-end supply chain transformation, logistics optimization, and network design.</p>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon"></div>
+                    <h3>Strategic Sourcing</h3>
+                    <p>Vendor selection, category management, and procurement strategies that drive value.</p>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon"></div>
+                    <h3>Project Management</h3>
+                    <p>Enterprise-scale project delivery with agile methodologies and proven frameworks.</p>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon"></div>
+                    <h3>IT Services</h3>
+                    <p>Digital transformation, technology implementation, and systems integration.</p>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon"></div>
+                    <h3>Contract Management</h3>
+                    <p>Contract negotiation, administration, compliance monitoring, and risk management.</p>
+                </div>
+
+                <div class="capability-card">
+                    <div class="capability-icon"></div>
+                    <h3>Business Strategy</h3>
+                    <p>Strategic advisory, business transformation, and competitive positioning.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Industries</h4>
+                    <ul>
+                        <li><a href="#">Food & Beverage</a></li>
+                        <li><a href="#">Pharmaceuticals</a></li>
+                        <li><a href="#">Consumer Goods</a></li>
+                        <li><a href="#">E-commerce & Retail</a></li>
+                        <li><a href="#">Cosmetics</a></li>
+                        <li><a href="#">Electronics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Capabilities</h4>
+                    <ul>
+                        <li><a href="#">Packaging Development</a></li>
+                        <li><a href="#">Quality Assurance</a></li>
+                        <li><a href="#">Supply Chain</a></li>
+                        <li><a href="#">Strategic Sourcing</a></li>
+                        <li><a href="#">Project Management</a></li>
+                        <li><a href="#">IT Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Insights</h4>
+                    <ul>
+                        <li><a href="#">Latest Insights</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Reports</a></li>
+                        <li><a href="#">Publications</a></li>
+                        <li><a href="#">Webinars</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Locations</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Genesis Consulting Group. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        const container = document.getElementById('insightsContainer');
+        const scrollLeftBtn = document.getElementById('scrollLeft');
+        const scrollRightBtn = document.getElementById('scrollRight');
+        const cards = document.querySelectorAll('.insight-card');
+
+        scrollLeftBtn.addEventListener('click', () => {
+            container.scrollBy({ left: -344, behavior: 'smooth' });
+        });
+
+        scrollRightBtn.addEventListener('click', () => {
+            container.scrollBy({ left: 344, behavior: 'smooth' });
+        });
+
+        // Card hover expansion
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const expandedContent = card.querySelector('.card-expanded');
+                expandedContent.style.maxHeight = expandedContent.scrollHeight + 'px';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                const expandedContent = card.querySelector('.card-expanded');
+                expandedContent.style.maxHeight = '0';
+            });
+        });
+    </script>
+</body>
+</html>
